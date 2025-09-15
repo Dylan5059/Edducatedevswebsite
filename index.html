@@ -26,11 +26,10 @@
       --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
       --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
       
-      /* EDIT THESE VALUES EASILY */
-      --discord-members: 2;       /* Update this number for Discord members */
-      --projects-built: 0;        /* Update this number for projects built */
-      --learning-resources: 0;    /* Update this number for learning resources */
-      --team-members: 5;          /* Update this number for team members */
+      --discord-members: 2;       
+      --projects-built: 0;        
+      --learning-resources: 0;    
+      --team-members: 5;
     }
     
     body, html {
@@ -649,7 +648,7 @@
       
       <div class="stats">
         <div class="stat-item scroll-reveal">
-          <span class="stat-number" id="discord-members" data-target="500">0</span>
+          <span class="stat-number" id="discord-members" data-target="2">0</span>
           <span class="stat-label">Discord Members</span>
         </div>
         <div class="stat-item scroll-reveal">
@@ -841,65 +840,25 @@
       });
     }
 
-    // Auto-fetch Discord member count
-    async function fetchDiscordMembers() {
-      const inviteCode = 'B7guDHqby3'; // Your Discord invite code
-      
-      try {
-        // Method 1: Discord invite API (most reliable for public servers)
-        const response = await fetch(`https://discord.com/api/v10/invites/${inviteCode}?with_counts=true`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          const memberCount = data.approximate_member_count;
-          if (memberCount) {
-            console.log(`Fetched ${memberCount} Discord members`);
-            document.getElementById('discord-members').setAttribute('data-target', memberCount);
-            return memberCount;
-          }
-        }
-      } catch (error) {
-        console.log('Discord API request failed:', error);
-      }
-      
-      try {
-        // Method 2: Try widget API as backup
-        // First you need to get your actual server ID (18-19 digit number)
-        // Enable Server Widget in your Discord server settings
-        const guildId = 'YOUR_ACTUAL_SERVER_ID'; // Replace with your 18-digit server ID
-        const widgetResponse = await fetch(`https://discord.com/api/guilds/${guildId}/widget.json`);
-        
-        if (widgetResponse.ok) {
-          const widgetData = await widgetResponse.json();
-          const memberCount = widgetData.presence_count;
-          if (memberCount) {
-            console.log(`Fetched ${memberCount} Discord members from widget`);
-            document.getElementById('discord-members').setAttribute('data-target', memberCount);
-            return memberCount;
-          }
-        }
-      } catch (error) {
-        console.log('Discord Widget API also failed:', error);
-      }
-      
-      // Fallback to manual count
-      console.log('Using fallback Discord member count');
-      const fallbackCount = 500;
-      document.getElementById('discord-members').setAttribute('data-target', fallbackCount);
-      return fallbackCount;
+    // Simple manual member count - no API calls
+    function setDiscordMembers() {
+      const memberCount = 2; // Update this number manually as your Discord grows
+      document.getElementById('discord-members').setAttribute('data-target', memberCount);
+      return memberCount;
     }
 
-    // Enhanced counter animation with Discord integration
+    // Enhanced counter animation 
     async function animateCounters() {
-      // First try to fetch real Discord member count
-      await fetchDiscordMembers();
+      // Set the Discord member count
+      setDiscordMembers();
       
       const counters = document.querySelectorAll('.stat-number');
       
       counters.forEach(counter => {
         const target = parseInt(counter.getAttribute('data-target'));
         let current = 0;
-        const increment = target / 100;
+        const increment = target > 0 ? target / 50 : 0; // Slower animation for small numbers
+        
         const timer = setInterval(() => {
           current += increment;
           if (current >= target) {
@@ -910,11 +869,11 @@
           // Format the number display
           const displayValue = Math.floor(current);
           if (target > 0) {
-            counter.textContent = displayValue.toLocaleString() + '+';
+            counter.textContent = displayValue.toLocaleString();
           } else {
             counter.textContent = '0';
           }
-        }, 20);
+        }, 30); // Slower timing for better visibility with small numbers
       });
     }
 
