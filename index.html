@@ -335,7 +335,287 @@
       letter-spacing: 1px;
     }
 
-    /* Features Section */
+    /* Community Section */
+    .community {
+      padding: 80px 20px;
+      background: rgba(30, 41, 59, 0.2);
+    }
+    
+    .community-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .community h3 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+    
+    .community-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .community-card {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    
+    .community-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-color);
+      box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+    }
+    
+    .community-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .community-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .community-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    
+    .community-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--accent-color);
+      border: 2px solid var(--accent-color);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .community-btn:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    .community-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      padding: 40px 0;
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    
+    .community-stat {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(56, 189, 248, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--accent-color);
+    }
+    
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+    
+    .stat-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent-color);
+    }
+    
+    .stat-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    /* About Section */
+    .about {
+      padding: 80px 20px;
+      background: rgba(30, 41, 59, 0.4);
+    }
+    
+    .about-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+    
+    .about h3 {
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+    
+    .about-description {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+    }
+    
+    .about-features {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+    }
+    
+    .about-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      color: var(--text-primary);
+    }
+    
+    .about-feature i {
+      color: var(--accent-color);
+      font-size: 18px;
+    }
+    
+    .about-image {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .about-placeholder {
+      background: rgba(30, 41, 59, 0.8);
+      border: 2px solid rgba(56, 189, 248, 0.3);
+      border-radius: 20px;
+      padding: 60px 40px;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+    }
+    
+    .about-placeholder i {
+      font-size: 80px;
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+    
+    .about-placeholder p {
+      color: var(--text-secondary);
+      font-size: 18px;
+      font-weight: 600;
+    }
+    
+    .team-section {
+      text-align: center;
+    }
+    
+    .team-section h4 {
+      font-size: 28px;
+      color: var(--accent-color);
+      margin-bottom: 50px;
+    }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .team-member {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .team-member:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-color);
+      box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+    }
+    
+    .member-avatar {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 32px;
+      color: white;
+    }
+    
+    .team-member h5 {
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    
+    .member-role {
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    
+    .member-bio {
+      color: var(--text-secondary);
+      line-height: 1.5;
+      font-size: 14px;
+    }
     .features {
       padding: 80px 20px;
       background: rgba(30, 41, 59, 0.3);
@@ -569,6 +849,25 @@
         gap: 20px;
       }
       
+      .community-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .community-stats {
+        gap: 30px;
+      }
+      
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .team-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
       .newsletter-form {
         flex-direction: column;
         align-items: center;
@@ -622,6 +921,7 @@
       <a href="#features" class="nav-item">Features</a>
       <a href="#community" class="nav-item">Community</a>
       <a href="#newsletter" class="nav-item">Newsletter</a>
+      <a href="#about" class="nav-item">About</a>
     </nav>
   </header>
 
@@ -676,7 +976,202 @@
     </div>
   </main>
 
-  <!-- Features Section -->
+  <!-- Community Section -->
+  <section class="community scroll-reveal" id="community">
+    <div class="community-container">
+      <h3>Join Our Growing Community</h3>
+      <p class="community-subtitle">
+        Connect, collaborate, and grow with developers from around the world
+      </p>
+      
+      <div class="community-grid">
+        <div class="community-card scroll-reveal">
+          <div class="community-icon">
+            <i class="fab fa-discord"></i>
+          </div>
+          <h4 class="community-title">Discord Server</h4>
+          <p class="community-description">
+            Join real-time discussions, get instant help, share projects, and participate in coding challenges with fellow developers.
+          </p>
+          <a href="https://discord.gg/B7guDHqby3" target="_blank" class="community-btn">
+            Join Discord
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="community-card scroll-reveal">
+          <div class="community-icon">
+            <i class="fab fa-github"></i>
+          </div>
+          <h4 class="community-title">Open Source</h4>
+          <p class="community-description">
+            Contribute to community projects, showcase your work, and collaborate on innovative solutions that impact real users.
+          </p>
+          <a href="#" class="community-btn">
+            Explore Projects
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="community-card scroll-reveal">
+          <div class="community-icon">
+            <i class="fas fa-calendar-alt"></i>
+          </div>
+          <h4 class="community-title">Events & Workshops</h4>
+          <p class="community-description">
+            Attend live coding sessions, technical workshops, career talks, and networking events to expand your skills and network.
+          </p>
+          <a href="#" class="community-btn">
+            View Events
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="community-card scroll-reveal">
+          <div class="community-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h4 class="community-title">Mentorship Program</h4>
+          <p class="community-description">
+            Get paired with experienced developers for personalized guidance, code reviews, and career advice to accelerate your growth.
+          </p>
+          <a href="#" class="community-btn">
+            Find Mentor
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="community-card scroll-reveal">
+          <div class="community-icon">
+            <i class="fas fa-trophy"></i>
+          </div>
+          <h4 class="community-title">Coding Challenges</h4>
+          <p class="community-description">
+            Participate in weekly coding competitions, hackathons, and skill-building challenges with prizes and recognition.
+          </p>
+          <a href="#" class="community-btn">
+            Join Challenge
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        
+        <div class="community-card scroll-reveal">
+          <div class="community-icon">
+            <i class="fas fa-briefcase"></i>
+          </div>
+          <h4 class="community-title">Job Board</h4>
+          <p class="community-description">
+            Access exclusive job opportunities from our partner companies, get referrals, and showcase your skills to potential employers.
+          </p>
+          <a href="#" class="community-btn">
+            Browse Jobs
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div class="community-stats">
+        <div class="community-stat">
+          <div class="stat-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-number">10K+</span>
+            <span class="stat-text">Messages Daily</span>
+          </div>
+        </div>
+        <div class="community-stat">
+          <div class="stat-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-number">500+</span>
+            <span class="stat-text">Code Reviews</span>
+          </div>
+        </div>
+        <div class="community-stat">
+          <div class="stat-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-number">50+</span>
+            <span class="stat-text">Weekly Workshops</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about scroll-reveal" id="about">
+    <div class="about-container">
+      <div class="about-content">
+        <div class="about-text">
+          <h3>About Educate Devs</h3>
+          <p class="about-description">
+            Founded by passionate developers, Educate Devs was created to bridge the gap between learning to code and becoming a professional developer. We believe that everyone deserves access to high-quality education, mentorship, and opportunities in tech.
+          </p>
+          <p class="about-description">
+            Our mission is to create an inclusive community where developers of all skill levels can learn, grow, and succeed together. Through collaborative projects, educational resources, and industry connections, we're building the next generation of tech innovators.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>100% Free Resources</span>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>Industry Expert Mentors</span>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>Real-World Projects</span>
+            </div>
+            <div class="about-feature">
+              <i class="fas fa-check-circle"></i>
+              <span>Career Support</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-image">
+          <div class="about-placeholder">
+            <i class="fas fa-laptop-code"></i>
+            <p>Building the Future of Developer Education</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="team-section">
+        <h4>Meet Our Team</h4>
+        <div class="team-grid">
+          <div class="team-member">
+            <div class="member-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <h5>Alex Chen</h5>
+            <p class="member-role">Founder & Lead Developer</p>
+            <p class="member-bio">Full-stack developer with 8 years experience at top tech companies.</p>
+          </div>
+          <div class="team-member">
+            <div class="member-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <h5>Sarah Johnson</h5>
+            <p class="member-role">Community Manager</p>
+            <p class="member-bio">Expert in building developer communities and educational programs.</p>
+          </div>
+          <div class="team-member">
+            <div class="member-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <h5>Mike Rodriguez</h5>
+            <p class="member-role">Technical Lead</p>
+            <p class="member-bio">Backend specialist focused on scalable systems and mentorship.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   <section class="features scroll-reveal" id="features">
     <div class="features-container">
       <h3>Why Choose Educate Devs?</h3>
@@ -767,6 +1262,8 @@
       <div class="footer-links">
         <a href="#home">Home</a>
         <a href="#features">Features</a>
+        <a href="#community">Community</a>
+        <a href="#about">About</a>
         <a href="https://discord.gg/B7guDHqby3" target="_blank">Discord</a>
         <a href="https://x.com/EducateDevsRblx" target="_blank">Twitter</a>
         <a href="#newsletter">Newsletter</a>
