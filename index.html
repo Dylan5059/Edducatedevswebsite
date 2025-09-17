@@ -933,6 +933,1155 @@
         <div class="community-stats">
           <div class="community-stat">
             <div class="stat-icon">
+              <i class="fas fa-comments"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">24/7</span>
+              <span class="stat-label">Community Support</span>
+            </div>
+          </div>
+          
+          <div class="community-stat">
+            <div class="stat-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">50+</span>
+              <span class="stat-label">Active Projects</span>
+            </div>
+          </div>
+          
+          <div class="community-stat">
+            <div class="stat-icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="stat-info">
+              <span class="stat-number">100+</span>
+              <span class="stat-label">Learning Paths</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features scroll-reveal" id="features">
+      <div class="features-container">
+        <h3>What We Offer</h3>
+        <p class="features-subtitle">
+          Everything you need to accelerate your development journey
+        </p>
+        
+        <div class="features-grid">
+          <div class="feature-card scroll-reveal">
+            <div class="feature-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <h4 class="feature-title">Interactive Learning</h4>
+            <p class="feature-description">
+              Hands-on tutorials, coding exercises, and real-world projects to build practical skills that employers value.
+            </p>
+          </div>
+          
+          <div class="feature-card scroll-reveal">
+            <div class="feature-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4 class="feature-title">Peer Collaboration</h4>
+            <p class="feature-description">
+              Work on team projects, participate in code reviews, and learn from experienced developers in our community.
+            </p>
+          </div>
+          
+          <div class="feature-card scroll-reveal">
+            <div class="feature-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h4 class="feature-title">Career Growth</h4>
+            <p class="feature-description">
+              Track your progress, earn certifications, and access exclusive job opportunities from our industry partners.
+            </p>
+          </div>
+          
+          <div class="feature-card scroll-reveal">
+            <div class="feature-icon">
+              <i class="fas fa-lightbulb"></i>
+            </div>
+            <h4 class="feature-title">Innovation Hub</h4>
+            <p class="feature-description">
+              Stay ahead with cutting-edge technologies, emerging trends, and innovative development practices.
+            </p>
+          </div>
+          
+          <div class="feature-card scroll-reveal">
+            <div class="feature-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h4 class="feature-title">24/7 Support</h4>
+            <p class="feature-description">
+              Get help whenever you need it with our active community and dedicated support team.
+            </p>
+          </div>
+          
+          <div class="feature-card scroll-reveal">
+            <div class="feature-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h4 class="feature-title">Mobile Friendly</h4>
+            <p class="feature-description">
+              Learn on-the-go with our mobile-optimized platform and progressive web app experience.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter scroll-reveal" id="newsletter">
+      <h4>Stay Updated</h4>
+      <p>Get the latest updates, tutorials, and community news delivered to your inbox</p>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Enter your email address" />
+        <button type="submit" class="cta-btn primary">
+          <i class="fas fa-paper-plane"></i>
+          Subscribe
+        </button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#" onclick="scrollToSection('home')">Home</a>
+          <a href="#" onclick="scrollToSection('features')">Features</a>
+          <a href="#" onclick="scrollToSection('community')">Community</a>
+          <a href="#" onclick="scrollToSection('newsletter')">Newsletter</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+        <p>&copy; 2024 Educate Devs. All rights reserved. Built with ❤️ by the community.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Loading functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const loader = document.getElementById('loader');
+      const loadingTip = document.getElementById('loading-tip');
+      const mainContent = document.getElementById('mainContent');
+      
+      // Show loading tip after a short delay
+      setTimeout(() => {
+        loadingTip.classList.add('show');
+      }, 500);
+      
+      // Hide loader and show main content after loading
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          mainContent.classList.add('loaded');
+          
+          // Start counter animation after content is loaded
+          animateCounters();
+          
+          // Initialize scroll reveal
+          initScrollReveal();
+        }, 1500); // Give time for the loading experience
+      });
+    });
+    
+    // Counter animation
+    function animateCounters() {
+      const counters = document.querySelectorAll('.stat-number[data-target]');
+      
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          counter.textContent = Math.floor(current);
+          
+          if (current >= target) {
+            counter.textContent = target;
+            clearInterval(timer);
+          }
+        }, 16);
+      });
+    }
+    
+    // Smooth scrolling
+    function scrollToSection(sectionId) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.offsetTop;
+        const offsetPosition = elementPosition - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+    
+    function scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+    
+    // Scroll reveal animation
+    function initScrollReveal() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all scroll-reveal elements
+      document.querySelectorAll('.scroll-reveal').forEach(el => {
+        observer.observe(el);
+      });
+    }
+    
+    // Newsletter form submission
+    document.querySelector('.newsletter-form button').addEventListener('click', function(e) {
+      e.preventDefault();
+      const email = document.querySelector('.newsletter input').value;
+      
+      if (email && email.includes('@')) {
+        alert('Thank you for subscribing! We\'ll keep you updated.');
+        document.querySelector('.newsletter input').value = '';
+      } else {
+        alert('Please enter a valid email address.');
+      }
+    });
+    
+    // Add some interactive effects
+    document.addEventListener('mousemove', (e) => {
+      const shapes = document.querySelectorAll('.shape');
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      
+      shapes.forEach((shape, index) => {
+        const speed = (index + 1) * 0.5;
+        shape.style.transform += ` translate(${x * speed}px, ${y * speed}px)`;
+      });
+    });
+  </script>
+</body>
+</html>    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--secondary-bg);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 4px;
+    }
+
+    /* Animated background */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+    }
+    .floating-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .shape {
+      position: absolute;
+      background: var(--gradient-3);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+    }
+    .shape:nth-child(1) {
+      width: 80px;
+      height: 80px;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    .shape:nth-child(2) {
+      width: 60px;
+      height: 60px;
+      left: 80%;
+      animation-delay: 5s;
+    }
+    .shape:nth-child(3) {
+      width: 100px;
+      height: 100px;
+      left: 50%;
+      animation-delay: 10s;
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+      }
+    }
+
+    /* Loader - Fixed */
+    #loader {
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%; 
+      height: 100%;
+      background: var(--primary-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    
+    #loader.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+    
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid var(--secondary-bg);
+      border-top: 4px solid var(--accent-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loading-tip {
+      margin-top: 25px;
+      font-size: 16px;
+      color: var(--text-secondary);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      text-align: center;
+      max-width: 400px;
+    }
+    .loading-tip.show {
+      opacity: 1;
+    }
+
+    /* Main content initially hidden during load */
+    .main-content {
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+    
+    .main-content.loaded {
+      opacity: 1;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(30, 41, 59, 0.9);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 500;
+      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+    }
+    header .logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    header .logo:hover {
+      transform: scale(1.05);
+    }
+    header .logo-placeholder {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+    }
+    header h1 {
+      font-size: 24px;
+      color: var(--accent-color);
+      font-weight: 700;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-menu {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .nav-item {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease, transform 0.3s ease;
+      position: relative;
+      cursor: pointer;
+    }
+    .nav-item::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+    .nav-item:hover {
+      color: var(--accent-color);
+      transform: translateY(-2px);
+    }
+    .nav-item:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: calc(100vh - 90px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 20px;
+      position: relative;
+    }
+    
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .hero h2 {
+      font-size: clamp(36px, 6vw, 60px);
+      margin-bottom: 20px;
+      font-weight: 800;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeDown 1s ease both;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.6;
+      margin-bottom: 40px;
+      color: var(--text-secondary);
+      animation: fadeUp 1.2s ease both;
+    }
+    
+    /* CTA Buttons */
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+      animation: fadeUp 1.4s ease both;
+    }
+    
+    .cta-btn {
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-btn.primary {
+      background: var(--gradient-3);
+      color: white;
+      box-shadow: 0 8px 25px rgba(56, 189, 248, 0.3);
+    }
+    
+    .cta-btn.secondary {
+      background: transparent;
+      color: var(--accent-color);
+      border: 2px solid var(--accent-color);
+    }
+    
+    .cta-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.4);
+    }
+    
+    .cta-btn.secondary:hover {
+      background: var(--accent-color);
+      color: white;
+    }
+
+    /* Stats Section */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+      margin: 60px 0;
+      animation: fadeUp 1.6s ease both;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      min-width: 150px;
+    }
+    
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(56, 189, 248, 0.2);
+    }
+    
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-color);
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Community Section */
+    .community {
+      padding: 80px 20px;
+      background: rgba(30, 41, 59, 0.2);
+    }
+    
+    .community-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .community h3 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+    
+    .community-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+    
+    .community-card {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      text-align: left;
+    }
+    
+    .community-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-color);
+      box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+    }
+    
+    .community-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .community-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .community-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    
+    .community-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--accent-color);
+      border: 2px solid var(--accent-color);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+    
+    .community-btn:hover {
+      background: var(--accent-color);
+      color: white;
+      transform: translateX(5px);
+    }
+    
+    .community-stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+      padding: 40px 0;
+      border-top: 1px solid rgba(56, 189, 248, 0.2);
+    }
+    
+    .community-stat {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(56, 189, 248, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: var(--accent-color);
+    }
+    
+    .stat-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 80px 20px;
+      background: rgba(30, 41, 59, 0.3);
+      margin: 60px 0;
+    }
+    
+    .features-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    .features h3 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--accent-color);
+      font-weight: 700;
+    }
+    
+    .features-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      margin-bottom: 60px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .feature-card {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 40px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--accent-color);
+      box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+    }
+    
+    .feature-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      background: var(--gradient-3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .feature-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .feature-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Social Icons */
+    .socials {
+      display: flex;
+      gap: 25px;
+      justify-content: center;
+      animation: fadeUp 1.8s ease both;
+    }
+    .socials a {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--text-primary);
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 50%;
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .socials a:hover {
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+    .socials .discord:hover { 
+      border-color: #5865F2;
+      background: rgba(88, 101, 242, 0.1);
+      color: #5865F2;
+    }
+    .socials .twitter:hover { 
+      border-color: #1DA1F2;
+      background: rgba(29, 161, 242, 0.1);
+      color: #1DA1F2;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+      background: rgba(30, 41, 59, 0.4);
+      padding: 60px 20px;
+      margin: 60px 0;
+      text-align: center;
+    }
+    
+    .newsletter h4 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: var(--accent-color);
+    }
+    
+    .newsletter p {
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+    }
+    
+    .newsletter-form {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      max-width: 400px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+    }
+    
+    .newsletter input {
+      flex: 1;
+      padding: 15px 20px;
+      border: 2px solid rgba(56, 189, 248, 0.3);
+      border-radius: 50px;
+      background: rgba(30, 41, 59, 0.5);
+      color: var(--text-primary);
+      font-size: 16px;
+      min-width: 250px;
+      transition: border-color 0.3s ease;
+    }
+    
+    .newsletter input:focus {
+      outline: none;
+      border-color: var(--accent-color);
+    }
+    
+    .newsletter input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      background: var(--secondary-bg);
+      border-top: 1px solid rgba(56, 189, 248, 0.1);
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    /* Animations */
+    @keyframes fadeDown {
+      from {opacity: 0; transform: translateY(-30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeUp {
+      from {opacity: 0; transform: translateY(30px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+      }
+      
+      .nav-menu {
+        display: none;
+      }
+      
+      .hero {
+        padding: 60px 20px;
+      }
+      
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .cta-btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+      
+      .stats {
+        gap: 30px;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .community-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .community-stats {
+        gap: 30px;
+      }
+      
+      .newsletter-form {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .newsletter input {
+        width: 100%;
+        max-width: 350px;
+      }
+    }
+    
+    /* Scroll reveal animation */
+    .scroll-reveal {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.6s ease;
+    }
+    
+    .scroll-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-animation">
+    <div class="floating-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="loading-tip" id="loading-tip">
+      Loading the future of developer education...
+    </div>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <div class="main-content" id="mainContent">
+    <!-- Header -->
+    <header>
+      <div class="logo" onclick="scrollToTop()">
+        <div class="logo-placeholder">ED</div>
+        <h1>Educate Devs</h1>
+      </div>
+      <nav class="nav-menu">
+        <span class="nav-item" onclick="scrollToSection('home')">Home</span>
+        <span class="nav-item" onclick="scrollToSection('features')">Features</span>
+        <span class="nav-item" onclick="scrollToSection('community')">Community</span>
+        <span class="nav-item" onclick="scrollToSection('newsletter')">Newsletter</span>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero" id="home">
+      <div class="hero-content">
+        <h2>Empowering Developers Worldwide</h2>
+        <p>
+          Join a thriving community where innovation meets collaboration. Connect with like-minded developers, 
+          share knowledge, build incredible projects, and accelerate your career in tech. 
+          Your journey to becoming an exceptional developer starts here.
+        </p>
+        
+        <div class="cta-buttons">
+          <a href="https://discord.gg/B7guDHqby3" target="_blank" class="cta-btn primary">
+            <i class="fab fa-discord"></i>
+            Join Discord
+          </a>
+          <span class="cta-btn secondary" onclick="scrollToSection('features')">
+            <i class="fas fa-rocket"></i>
+            Learn More
+          </span>
+        </div>
+        
+        <div class="stats">
+          <div class="stat-item scroll-reveal">
+            <span class="stat-number" id="discord-members" data-target="2">0</span>
+            <span class="stat-label">Discord Members</span>
+          </div>
+          <div class="stat-item scroll-reveal">
+            <span class="stat-number" data-target="0">0</span>
+            <span class="stat-label">Projects Built</span>
+          </div>
+          <div class="stat-item scroll-reveal">
+            <span class="stat-number" data-target="0">0</span>
+            <span class="stat-label">Learning Resources</span>
+          </div>
+          <div class="stat-item scroll-reveal">
+            <span class="stat-number" data-target="5">0</span>
+            <span class="stat-label">Team Members</span>
+          </div>
+        </div>
+        
+        <div class="socials">
+          <a href="https://discord.gg/B7guDHqby3" target="_blank" class="discord" title="Join our Discord">
+            <i class="fab fa-discord"></i>
+          </a>
+          <a href="https://x.com/EducateDevsRblx" target="_blank" class="twitter" title="Follow us on X">
+            <i class="fab fa-x-twitter"></i>
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- Community Section -->
+    <section class="community scroll-reveal" id="community">
+      <div class="community-container">
+        <h3>Join Our Growing Community</h3>
+        <p class="community-subtitle">
+          Connect, collaborate, and grow with developers from around the world
+        </p>
+        
+        <div class="community-grid">
+          <div class="community-card scroll-reveal">
+            <div class="community-icon">
+              <i class="fab fa-discord"></i>
+            </div>
+            <h4 class="community-title">Discord Server</h4>
+            <p class="community-description">
+              Join real-time discussions, get instant help, share projects, and participate in coding challenges with fellow developers.
+            </p>
+            <a href="https://discord.gg/B7guDHqby3" target="_blank" class="community-btn">
+              Join Discord
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+          
+          <div class="community-card scroll-reveal">
+            <div class="community-icon">
+              <i class="fab fa-github"></i>
+            </div>
+            <h4 class="community-title">Open Source</h4>
+            <p class="community-description">
+              Contribute to community projects, showcase your work, and collaborate on innovative solutions that impact real users.
+            </p>
+            <span class="community-btn">
+              Explore Projects
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+          
+          <div class="community-card scroll-reveal">
+            <div class="community-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <h4 class="community-title">Events & Workshops</h4>
+            <p class="community-description">
+              Attend live coding sessions, technical workshops, career talks, and networking events to expand your skills and network.
+            </p>
+            <span class="community-btn">
+              View Events
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+          
+          <div class="community-card scroll-reveal">
+            <div class="community-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <h4 class="community-title">Mentorship Program</h4>
+            <p class="community-description">
+              Get paired with experienced developers for personalized guidance, code reviews, and career advice to accelerate your growth.
+            </p>
+            <span class="community-btn">
+              Find Mentor
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+          
+          <div class="community-card scroll-reveal">
+            <div class="community-icon">
+              <i class="fas fa-trophy"></i>
+            </div>
+            <h4 class="community-title">Coding Challenges</h4>
+            <p class="community-description">
+              Participate in weekly coding competitions, hackathons, and skill-building challenges with prizes and recognition.
+            </p>
+            <span class="community-btn">
+              Join Challenge
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+          
+          <div class="community-card scroll-reveal">
+            <div class="community-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <h4 class="community-title">Job Board</h4>
+            <p class="community-description">
+              Access exclusive job opportunities from our partner companies, get referrals, and showcase your skills to potential employers.
+            </p>
+            <span class="community-btn">
+              Browse Jobs
+              <i class="fas fa-arrow-right"></i>
+            </span>
+          </div>
+        </div>
+        
+        <div class="community-stats">
+          <div class="community-stat">
+            <div class="stat-icon">
               <i class="fas fa-comments"></i>      --twitter-url: 'https://x.com/EducateDevsRblx';
       --github-url: 'https://github.com/yourusername';
       --email-contact: 'contact@educatedevs.com';
