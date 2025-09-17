@@ -3,160 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Application Review - Educate Devs Admin</title>
+  <title>Educate Devs Admin Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary-bg: #0a0a0f;
+      --secondary-bg: #161622;
+      --tertiary-bg: #1d1d2e;
+      --accent-primary: #2940f5;
+      --accent-secondary: #5c9ff6;
+      --accent-tertiary: #48bdec;
+      --text-primary: #ffffff;
+      --text-secondary: #a8a8b3;
+      --text-muted: #6b7280;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+      --gradient-primary: linear-gradient(135deg, #2940f5 0%, #5c9ff6 50%, #48bdec 100%);
+      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.15);
+      --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.3);
+      --shadow-xl: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
-    :root {
-      --primary-bg: #0f172a;
-      --secondary-bg: #1e293b;
-      --accent-color: #38bdf8;
-      --text-primary: #e2e8f0;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --success-color: #22c55e;
-      --danger-color: #ef4444;
-      --warning-color: #f59e0b;
-    }
-    
+
     body {
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--primary-bg);
       color: var(--text-primary);
-      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--secondary-bg); }
+    ::-webkit-scrollbar-thumb { 
+      background: var(--gradient-primary); 
+      border-radius: 3px; 
+    }
+
+    /* Background Effects */
+    .bg-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .stars-field {
+      position: absolute;
+      width: 100%; height: 100%;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 4s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.8); }
+      50% { opacity: 0.6; transform: scale(1.2); }
     }
 
     /* Login Screen */
     .login-screen {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: var(--primary-bg);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       z-index: 1000;
+      padding: 20px;
     }
 
     .login-container {
-      background: var(--secondary-bg);
-      padding: 40px;
-      border-radius: 20px;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 50px;
+      max-width: 450px;
       width: 100%;
-      max-width: 400px;
       text-align: center;
+      box-shadow: var(--shadow-xl);
     }
 
     .login-header {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
-    .login-header i {
-      font-size: 48px;
-      color: var(--accent-color);
-      margin-bottom: 15px;
+    .login-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: white;
+      margin: 0 auto 24px;
     }
 
-    .login-header h2 {
-      color: var(--accent-color);
-      margin-bottom: 8px;
+    .login-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
-    .login-header p {
+    .login-subtitle {
       color: var(--text-secondary);
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .login-form {
       display: flex;
       flex-direction: column;
-      gap: 20px;
-    }
-
-    .form-group {
+      gap: 24px;
       text-align: left;
     }
 
-    .form-group label {
+    .form-group {
+      position: relative;
+    }
+
+    .form-label {
       display: block;
       color: var(--text-primary);
-      margin-bottom: 8px;
       font-weight: 600;
+      margin-bottom: 8px;
+      font-size: 14px;
     }
 
-    .form-group input {
+    .form-input {
       width: 100%;
-      padding: 12px 16px;
-      background: rgba(30, 41, 59, 0.5);
-      border: 2px solid rgba(56, 189, 248, 0.3);
-      border-radius: 10px;
+      padding: 16px 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
       color: var(--text-primary);
       font-size: 16px;
-      transition: border-color 0.3s ease;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(20px);
     }
 
-    .form-group input:focus {
+    .form-input:focus {
       outline: none;
-      border-color: var(--accent-color);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
 
     .login-btn {
-      padding: 15px 30px;
-      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient-primary);
       color: white;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+      margin-top: 8px;
     }
 
     .login-btn:hover {
-      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
       transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
     }
 
     .login-error {
-      color: var(--danger-color);
+      color: var(--error);
       font-size: 14px;
-      margin-top: 10px;
+      margin-top: 16px;
+      padding: 12px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      border-radius: 8px;
       display: none;
     }
 
-    .admin-header {
-      background: var(--secondary-bg);
-      padding: 20px 40px;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    /* Dashboard Layout */
+    .dashboard {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .dashboard-header {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
     }
 
-    .admin-header-left h1 {
-      color: var(--accent-color);
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    
-    .admin-header-left p {
-      color: var(--text-secondary);
-    }
-
-    .admin-header-right {
+    .header-left {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 20px;
+    }
+
+    .dashboard-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+    }
+
+    .dashboard-title {
+      font-size: 24px;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
     }
 
     .welcome-text {
@@ -165,109 +292,159 @@
     }
 
     .logout-btn {
-      padding: 10px 20px;
+      padding: 8px 16px;
       background: transparent;
-      color: var(--danger-color);
-      border: 2px solid var(--danger-color);
+      color: var(--error);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
+      font-size: 14px;
       font-weight: 500;
     }
 
     .logout-btn:hover {
-      background: var(--danger-color);
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--error);
+    }
+
+    /* Dashboard Content */
+    .dashboard-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+
+    .dashboard-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 8px;
+    }
+
+    .nav-tab {
+      padding: 12px 24px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      flex: 1;
+      text-align: center;
+    }
+
+    .nav-tab.active {
+      background: var(--accent-primary);
       color: white;
     }
 
-    .admin-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px 20px;
+    .nav-tab:not(.active):hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
     }
 
-    .admin-stats {
+    /* Tab Content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
       margin-bottom: 40px;
     }
 
     .stat-card {
-      background: var(--secondary-bg);
-      padding: 25px;
-      border-radius: 15px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      text-align: center;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.3s ease;
     }
 
-    .stat-number {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 8px;
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(99, 102, 241, 0.3);
     }
 
-    .stat-label {
+    .stat-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: white;
+    }
+
+    .stat-icon.total { background: linear-gradient(135deg, #2940f5, #5c9ff6); }
+    .stat-icon.pending { background: linear-gradient(135deg, #f59e0b, #f97316); }
+    .stat-icon.accepted { background: linear-gradient(135deg, #10b981, #059669); }
+    .stat-icon.rejected { background: linear-gradient(135deg, #ef4444, #dc2626); }
+
+    .stat-info h3 {
       font-size: 14px;
+      font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
-    .pending-stat .stat-number { color: var(--warning-color); }
-    .accepted-stat .stat-number { color: var(--success-color); }
-    .rejected-stat .stat-number { color: var(--danger-color); }
-    .total-stat .stat-number { color: var(--accent-color); }
-
-    .filters {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      align-items: center;
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-top: 8px;
     }
 
-    .filter-btn {
-      padding: 10px 20px;
-      background: transparent;
-      color: var(--text-secondary);
-      border: 2px solid rgba(148, 163, 184, 0.3);
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-      background: rgba(56, 189, 248, 0.1);
-    }
-
+    /* Applications Grid */
     .applications-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 25px;
+      gap: 24px;
     }
 
     .application-card {
-      background: var(--secondary-bg);
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
       border-radius: 20px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
       overflow: hidden;
       transition: all 0.3s ease;
       position: relative;
     }
 
     .application-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+      border-color: rgba(99, 102, 241, 0.3);
     }
 
     .application-header {
-      padding: 25px 25px 20px;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+      padding: 24px;
+      border-bottom: 1px solid var(--border-color);
       position: relative;
     }
 
@@ -276,29 +453,29 @@
       top: 20px;
       right: 20px;
       padding: 6px 12px;
-      border-radius: 15px;
+      border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .status-pending {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--warning-color);
-      border: 1px solid var(--warning-color);
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+      border: 1px solid rgba(245, 158, 11, 0.3);
     }
 
     .status-accepted {
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--success-color);
-      border: 1px solid var(--success-color);
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
 
     .status-rejected {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--danger-color);
-      border: 1px solid var(--danger-color);
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--error);
+      border: 1px solid rgba(239, 68, 68, 0.3);
     }
 
     .applicant-name {
@@ -310,34 +487,36 @@
 
     .application-meta {
       display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
       flex-wrap: wrap;
+      gap: 16px;
+      color: var(--text-secondary);
+      font-size: 14px;
     }
 
     .meta-item {
       display: flex;
       align-items: center;
       gap: 6px;
-      color: var(--text-secondary);
-      font-size: 14px;
     }
 
     .meta-item i {
-      color: var(--accent-color);
+      color: var(--accent-primary);
+      width: 16px;
     }
 
     .application-id {
-      font-family: monospace;
-      background: rgba(56, 189, 248, 0.1);
+      font-family: 'Monaco', 'Consolas', monospace;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--accent-primary);
       padding: 4px 8px;
       border-radius: 6px;
       font-size: 12px;
-      color: var(--accent-color);
+      margin-top: 12px;
+      display: inline-block;
     }
 
     .application-body {
-      padding: 0 25px 25px;
+      padding: 24px;
     }
 
     .field-group {
@@ -345,25 +524,27 @@
     }
 
     .field-label {
+      font-size: 14px;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 6px;
-      font-size: 14px;
     }
 
     .field-value {
       color: var(--text-secondary);
-      line-height: 1.5;
-      padding-left: 10px;
-      border-left: 3px solid rgba(56, 189, 248, 0.3);
+      line-height: 1.6;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 3px solid var(--accent-primary);
     }
 
     .application-actions {
       display: flex;
-      gap: 10px;
-      margin-top: 20px;
+      gap: 12px;
+      margin-top: 24px;
       padding-top: 20px;
-      border-top: 1px solid rgba(56, 189, 248, 0.1);
+      border-top: 1px solid var(--border-color);
     }
 
     .action-btn {
@@ -378,26 +559,27 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
+      font-size: 14px;
     }
 
     .btn-accept {
-      background: var(--success-color);
+      background: linear-gradient(135deg, #10b981, #059669);
       color: white;
     }
 
     .btn-reject {
-      background: var(--danger-color);
+      background: linear-gradient(135deg, #ef4444, #dc2626);
       color: white;
     }
 
     .btn-accept:hover {
-      background: #16a34a;
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
     }
 
     .btn-reject:hover {
-      background: #dc2626;
       transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
     }
 
     .action-btn:disabled {
@@ -406,180 +588,498 @@
       transform: none !important;
     }
 
-    .no-applications {
+    /* Tools Section */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+
+    .tool-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
       text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
+      transition: all 0.3s ease;
     }
 
-    .no-applications i {
-      font-size: 64px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
+    .tool-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(99, 102, 241, 0.3);
     }
 
-    .bulk-actions {
-      margin-bottom: 20px;
-      padding: 20px;
-      background: var(--secondary-bg);
-      border-radius: 15px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
+    .tool-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-primary);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: white;
+      margin: 0 auto 20px;
     }
 
-    .bulk-actions h3 {
-      color: var(--accent-color);
-      margin-bottom: 15px;
+    .tool-title {
       font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 12px;
     }
 
-    .bulk-btn {
-      padding: 10px 20px;
-      margin-right: 10px;
-      background: transparent;
+    .tool-description {
       color: var(--text-secondary);
-      border: 2px solid rgba(148, 163, 184, 0.3);
-      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .tool-btn {
+      width: 100%;
+      padding: 12px 24px;
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+    }
+
+    .tool-btn:hover {
+      background: var(--accent-secondary);
+      transform: translateY(-2px);
+    }
+
+    .tool-btn.danger {
+      background: var(--error);
+    }
+
+    .tool-btn.danger:hover {
+      background: #dc2626;
+    }
+
+    /* Settings */
+    .settings-grid {
+      display: grid;
+      gap: 24px;
+      max-width: 800px;
+    }
+
+    .setting-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    .setting-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .setting-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.1);
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: var(--gradient-primary);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    /* Filters */
+    .filters-container {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 20px;
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
       font-weight: 500;
     }
 
-    .bulk-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
     }
 
-    .bulk-btn.danger:hover {
-      border-color: var(--danger-color);
-      color: var(--danger-color);
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-secondary);
     }
 
-    .admin-content {
-      display: none;
+    .empty-icon {
+      font-size: 64px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      opacity: 0.5;
     }
 
+    .empty-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .admin-header {
-        padding: 20px;
+      .header-container {
+        padding: 0 20px;
         flex-direction: column;
-        gap: 15px;
+        gap: 16px;
         text-align: center;
       }
-      
-      .admin-container {
-        padding: 20px 15px;
+
+      .dashboard-content {
+        padding: 20px;
       }
-      
+
+      .dashboard-nav {
+        flex-direction: column;
+        gap: 4px;
+      }
+
       .applications-grid {
         grid-template-columns: 1fr;
       }
-      
-      .filters {
-        justify-content: center;
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
-      
-      .application-meta {
-        flex-direction: column;
-        gap: 8px;
-      }
-      
+
       .login-container {
-        margin: 20px;
-        padding: 30px;
+        padding: 40px 30px;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Background -->
+  <div class="bg-container">
+    <div class="stars-field" id="starsField"></div>
+  </div>
+
   <!-- Login Screen -->
   <div class="login-screen" id="loginScreen">
     <div class="login-container">
       <div class="login-header">
-        <i class="fas fa-shield-alt"></i>
-        <h2>Admin Access</h2>
-        <p>Enter your credentials to access the admin dashboard</p>
+        <div class="login-icon">
+          <i class="fas fa-shield-alt"></i>
+        </div>
+        <h1 class="login-title">Admin Dashboard</h1>
+        <p class="login-subtitle">Enter your credentials to access the admin panel</p>
       </div>
       <form class="login-form" id="loginForm">
         <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required>
+          <label class="form-label">Username</label>
+          <input type="text" class="form-input" id="username" required>
         </div>
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+          <label class="form-label">Password</label>
+          <input type="password" class="form-input" id="password" required>
         </div>
         <button type="submit" class="login-btn">
           <i class="fas fa-sign-in-alt"></i>
-          Login
+          Sign In
         </button>
         <div class="login-error" id="loginError">
-          Invalid username or password. Please try again.
+          <i class="fas fa-exclamation-triangle"></i>
+          Invalid credentials. Please try again.
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Admin Dashboard -->
-  <div class="admin-content" id="adminContent">
-    <header class="admin-header">
-      <div class="admin-header-left">
-        <h1><i class="fas fa-clipboard-list"></i> Application Review Dashboard</h1>
-        <p>Manage and review job applications for Educate Devs</p>
-      </div>
-      <div class="admin-header-right">
-        <span class="welcome-text">Welcome, <strong id="welcomeUser">Admin</strong></span>
-        <button class="logout-btn" onclick="logout()">
-          <i class="fas fa-sign-out-alt"></i>
-          Logout
-        </button>
+  <!-- Dashboard -->
+  <div class="dashboard" id="dashboard">
+    <header class="dashboard-header">
+      <div class="header-container">
+        <div class="header-left">
+          <div class="dashboard-logo">
+            <div class="logo-icon">
+              <i class="fas fa-tachometer-alt"></i>
+            </div>
+            <h1 class="dashboard-title">Admin Dashboard</h1>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="user-info">
+            <div class="user-avatar">
+              <i class="fas fa-user"></i>
+            </div>
+            <div>
+              <div style="font-weight: 600; color: var(--text-primary);" id="welcomeUser">Educate Devs</div>
+              <div class="welcome-text">Administrator</div>
+            </div>
+          </div>
+          <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+          </button>
+        </div>
       </div>
     </header>
 
-    <div class="admin-container">
-      <div class="admin-stats">
-        <div class="stat-card total-stat">
-          <div class="stat-number" id="totalApplications">0</div>
-          <div class="stat-label">Total Applications</div>
+    <div class="dashboard-content">
+      <nav class="dashboard-nav">
+        <button class="nav-tab active" onclick="switchTab('applications')">
+          <i class="fas fa-file-alt"></i>
+          Applications
+        </button>
+        <button class="nav-tab" onclick="switchTab('analytics')">
+          <i class="fas fa-chart-line"></i>
+          Analytics
+        </button>
+        <button class="nav-tab" onclick="switchTab('tools')">
+          <i class="fas fa-tools"></i>
+          Tools
+        </button>
+        <button class="nav-tab" onclick="switchTab('settings')">
+          <i class="fas fa-cog"></i>
+          Settings
+        </button>
+      </nav>
+
+      <!-- Applications Tab -->
+      <div class="tab-content active" id="applicationsTab">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon total">
+                <i class="fas fa-file-alt"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Total Applications</h3>
+                <div class="stat-number" id="totalApplications">0</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon pending">
+                <i class="fas fa-clock"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Pending Review</h3>
+                <div class="stat-number" id="pendingApplications">0</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon accepted">
+                <i class="fas fa-check"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Accepted</h3>
+                <div class="stat-number" id="acceptedApplications">0</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon rejected">
+                <i class="fas fa-times"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Rejected</h3>
+                <div class="stat-number" id="rejectedApplications">0</div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="stat-card pending-stat">
-          <div class="stat-number" id="pendingApplications">0</div>
-          <div class="stat-label">Pending</div>
+
+        <div class="filters-container">
+          <button class="filter-btn active" data-filter="all">All Applications</button>
+          <button class="filter-btn" data-filter="pending">Pending</button>
+          <button class="filter-btn" data-filter="accepted">Accepted</button>
+          <button class="filter-btn" data-filter="rejected">Rejected</button>
         </div>
-        <div class="stat-card accepted-stat">
-          <div class="stat-number" id="acceptedApplications">0</div>
-          <div class="stat-label">Accepted</div>
-        </div>
-        <div class="stat-card rejected-stat">
-          <div class="stat-number" id="rejectedApplications">0</div>
-          <div class="stat-label">Rejected</div>
+
+        <div class="applications-grid" id="applicationsContainer">
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-inbox"></i>
+            </div>
+            <h3 class="empty-title">No Applications Yet</h3>
+            <p>Applications will appear here when people apply for positions</p>
+          </div>
         </div>
       </div>
 
-      <div class="bulk-actions">
-        <h3>Bulk Actions</h3>
-        <button class="bulk-btn" onclick="exportApplications()">
-          <i class="fas fa-download"></i> Export All
-        </button>
-        <button class="bulk-btn danger" onclick="clearAllApplications()">
-          <i class="fas fa-trash"></i> Clear All Data
-        </button>
-        <button class="bulk-btn" onclick="loadApplications()">
-          <i class="fas fa-sync"></i> Refresh
-        </button>
+      <!-- Analytics Tab -->
+      <div class="tab-content" id="analyticsTab">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon total">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Applications This Month</h3>
+                <div class="stat-number" id="monthlyApplications">0</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon accepted">
+                <i class="fas fa-percentage"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Acceptance Rate</h3>
+                <div class="stat-number" id="acceptanceRate">0%</div>
+              </div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <div class="stat-icon pending">
+                <i class="fas fa-stopwatch"></i>
+              </div>
+              <div class="stat-info">
+                <h3>Avg Response Time</h3>
+                <div class="stat-number" id="responseTime">0d</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="filters">
-        <button class="filter-btn active" data-filter="all">All Applications</button>
-        <button class="filter-btn" data-filter="pending">Pending</button>
-        <button class="filter-btn" data-filter="accepted">Accepted</button>
-        <button class="filter-btn" data-filter="rejected">Rejected</button>
+      <!-- Tools Tab -->
+      <div class="tab-content" id="toolsTab">
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-download"></i>
+            </div>
+            <h3 class="tool-title">Export Applications</h3>
+            <p class="tool-description">Download all applications as JSON file for backup or analysis</p>
+            <button class="tool-btn" onclick="exportApplications()">
+              <i class="fas fa-download"></i>
+              Export Data
+            </button>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-sync"></i>
+            </div>
+            <h3 class="tool-title">Refresh Data</h3>
+            <p class="tool-description">Reload all application data and update statistics</p>
+            <button class="tool-btn" onclick="loadApplications()">
+              <i class="fas fa-sync"></i>
+              Refresh
+            </button>
+          </div>
+          <div class="tool-card">
+            <div class="tool-icon">
+              <i class="fas fa-trash"></i>
+            </div>
+            <h3 class="tool-title">Clear All Data</h3>
+            <p class="tool-description">Permanently delete all application data (cannot be undone)</p>
+            <button class="tool-btn danger" onclick="clearAllApplications()">
+              <i class="fas fa-trash"></i>
+              Clear Data
+            </button>
+          </div>
+        </div>
       </div>
 
-      <div class="applications-grid" id="applicationsContainer">
-        <div class="no-applications">
-          <i class="fas fa-inbox"></i>
-          <h3>No Applications Yet</h3>
-          <p>Applications will appear here when people apply for positions</p>
+      <!-- Settings Tab -->
+      <div class="tab-content" id="settingsTab">
+        <div class="settings-grid">
+          <div class="setting-card">
+            <div class="setting-header">
+              <h3 class="setting-title">Auto-refresh Applications</h3>
+              <label class="toggle-switch">
+                <input type="checkbox" id="autoRefresh" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p style="color: var(--text-secondary);">Automatically refresh application data every 30 seconds</p>
+          </div>
+          <div class="setting-card">
+            <div class="setting-header">
+              <h3 class="setting-title">Email Notifications</h3>
+              <label class="toggle-switch">
+                <input type="checkbox" id="emailNotifications">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p style="color: var(--text-secondary);">Receive email notifications for new applications</p>
+          </div>
+          <div class="setting-card">
+            <div class="setting-header">
+              <h3 class="setting-title">Dark Mode</h3>
+              <label class="toggle-switch">
+                <input type="checkbox" id="darkMode" checked>
+                <span class="slider"></span>
+              </label>
+            </div>
+            <p style="color: var(--text-secondary);">Toggle between light and dark theme</p>
+          </div>
         </div>
       </div>
     </div>
@@ -588,61 +1088,77 @@
   <script>
     let allApplications = [];
     let currentFilter = 'all';
+    let currentTab = 'applications';
     let isLoggedIn = false;
+    let autoRefreshInterval = null;
 
     // Admin credentials
     const ADMIN_USERNAME = 'Educate Devs';
     const ADMIN_PASSWORD = 'K5T97D6J';
 
-    // Check if already logged in on page load
+    // Initialize
     window.addEventListener('load', function() {
+      createStars();
+      checkLoginStatus();
+    });
+
+    function createStars() {
+      const starsField = document.getElementById('starsField');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.width = Math.random() * 2 + 1 + 'px';
+        star.style.height = star.style.width;
+        star.style.animationDelay = Math.random() * 4 + 's';
+        starsField.appendChild(star);
+      }
+    }
+
+    function checkLoginStatus() {
       const savedLogin = localStorage.getItem('adminLoggedIn');
       const loginTime = localStorage.getItem('adminLoginTime');
       const currentTime = new Date().getTime();
       
-      // Check if login is valid (within 24 hours)
       if (savedLogin === 'true' && loginTime && (currentTime - parseInt(loginTime)) < 86400000) {
-        showAdminDashboard();
+        showDashboard();
       } else {
-        // Clear expired login
         localStorage.removeItem('adminLoggedIn');
         localStorage.removeItem('adminLoginTime');
         showLoginScreen();
       }
-    });
+    }
 
     function showLoginScreen() {
       document.getElementById('loginScreen').style.display = 'flex';
-      document.getElementById('adminContent').style.display = 'none';
+      document.getElementById('dashboard').style.display = 'none';
       isLoggedIn = false;
     }
 
-    function showAdminDashboard() {
+    function showDashboard() {
       document.getElementById('loginScreen').style.display = 'none';
-      document.getElementById('adminContent').style.display = 'block';
-      document.getElementById('welcomeUser').textContent = ADMIN_USERNAME;
+      document.getElementById('dashboard').style.display = 'block';
       isLoggedIn = true;
       loadApplications();
+      startAutoRefresh();
     }
 
     function login(username, password) {
       if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-        // Save login state
         localStorage.setItem('adminLoggedIn', 'true');
         localStorage.setItem('adminLoginTime', new Date().getTime().toString());
-        showAdminDashboard();
+        showDashboard();
         return true;
       }
       return false;
     }
 
     function logout() {
-      // Clear login state
       localStorage.removeItem('adminLoggedIn');
       localStorage.removeItem('adminLoginTime');
+      stopAutoRefresh();
       showLoginScreen();
-      
-      // Clear form
       document.getElementById('loginForm').reset();
       document.getElementById('loginError').style.display = 'none';
     }
@@ -658,10 +1174,30 @@
         errorDiv.style.display = 'none';
       } else {
         errorDiv.style.display = 'block';
-        // Clear password field
         document.getElementById('password').value = '';
       }
     });
+
+    // Tab switching
+    function switchTab(tabName) {
+      currentTab = tabName;
+      
+      // Update nav
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Update content
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+      });
+      document.getElementById(tabName + 'Tab').classList.add('active');
+
+      if (tabName === 'analytics') {
+        updateAnalytics();
+      }
+    }
 
     function loadApplications() {
       if (!isLoggedIn) return;
@@ -684,6 +1220,23 @@
       document.getElementById('rejectedApplications').textContent = rejected;
     }
 
+    function updateAnalytics() {
+      const currentMonth = new Date().getMonth();
+      const currentYear = new Date().getFullYear();
+      
+      const monthlyApps = allApplications.filter(app => {
+        const appDate = new Date(app.timestamp);
+        return appDate.getMonth() === currentMonth && appDate.getFullYear() === currentYear;
+      }).length;
+
+      const acceptanceRate = allApplications.length > 0 ? 
+        Math.round((allApplications.filter(app => app.status === 'accepted').length / allApplications.length) * 100) : 0;
+
+      document.getElementById('monthlyApplications').textContent = monthlyApps;
+      document.getElementById('acceptanceRate').textContent = acceptanceRate + '%';
+      document.getElementById('responseTime').textContent = '1-2d';
+    }
+
     function displayApplications() {
       const container = document.getElementById('applicationsContainer');
       let filteredApps = allApplications;
@@ -694,9 +1247,11 @@
 
       if (filteredApps.length === 0) {
         container.innerHTML = `
-          <div class="no-applications">
-            <i class="fas fa-inbox"></i>
-            <h3>No ${currentFilter === 'all' ? '' : currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1)} Applications</h3>
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="fas fa-inbox"></i>
+            </div>
+            <h3 class="empty-title">No ${currentFilter === 'all' ? '' : currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1)} Applications</h3>
             <p>${currentFilter === 'all' ? 'Applications will appear here when people apply for positions' : `No ${currentFilter} applications found`}</p>
           </div>
         `;
@@ -704,7 +1259,7 @@
       }
 
       container.innerHTML = filteredApps.map(app => `
-        <div class="application-card" data-status="${app.status}">
+        <div class="application-card">
           <div class="application-header">
             <div class="application-status status-${app.status}">${app.status}</div>
             <div class="applicant-name">${app.fullName}</div>
@@ -714,28 +1269,22 @@
                 <span>${app.position}</span>
               </div>
               <div class="meta-item">
-                <i class="fas fa-calendar"></i>
-                <span>${new Date(app.timestamp).toLocaleDateString()}</span>
+                <i class="fas fa-envelope"></i>
+                <span>${app.email}</span>
               </div>
               <div class="meta-item">
-                <i class="fas fa-clock"></i>
-                <span>${new Date(app.timestamp).toLocaleTimeString()}</span>
+                <i class="fab fa-discord"></i>
+                <span>${app.discordUsername}</span>
+              </div>
+              <div class="meta-item">
+                <i class="fas fa-calendar"></i>
+                <span>${new Date(app.timestamp).toLocaleDateString()}</span>
               </div>
             </div>
             <div class="application-id">${app.applicationId}</div>
           </div>
           
           <div class="application-body">
-            <div class="field-group">
-              <div class="field-label">Email</div>
-              <div class="field-value">${app.email}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Discord Username</div>
-              <div class="field-value">${app.discordUsername}</div>
-            </div>
-            
             <div class="field-group">
               <div class="field-label">Experience</div>
               <div class="field-value">${app.experience}</div>
@@ -799,7 +1348,7 @@
     function clearAllApplications() {
       if (!isLoggedIn) return;
       
-      if (confirm('Are you sure you want to delete ALL applications? This cannot be undone!')) {
+      if (confirm('Are you sure you want to delete ALL applications? This action cannot be undone!')) {
         localStorage.removeItem('jobApplications');
         allApplications = [];
         loadApplications();
@@ -807,23 +1356,44 @@
     }
 
     // Filter functionality
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentFilter = this.dataset.filter;
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('filter-btn')) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        e.target.classList.add('active');
+        currentFilter = e.target.dataset.filter;
         displayApplications();
-      });
+      }
     });
 
-    // Auto-refresh every 30 seconds (only when logged in)
-    setInterval(() => {
-      if (isLoggedIn) {
-        loadApplications();
+    // Auto-refresh
+    function startAutoRefresh() {
+      const autoRefreshCheckbox = document.getElementById('autoRefresh');
+      if (autoRefreshCheckbox && autoRefreshCheckbox.checked) {
+        autoRefreshInterval = setInterval(() => {
+          if (isLoggedIn && currentTab === 'applications') {
+            loadApplications();
+          }
+        }, 30000);
       }
-    }, 30000);
+    }
 
-    // Auto-logout after 24 hours of inactivity
+    function stopAutoRefresh() {
+      if (autoRefreshInterval) {
+        clearInterval(autoRefreshInterval);
+        autoRefreshInterval = null;
+      }
+    }
+
+    // Settings
+    document.getElementById('autoRefresh').addEventListener('change', function() {
+      if (this.checked) {
+        startAutoRefresh();
+      } else {
+        stopAutoRefresh();
+      }
+    });
+
+    // Session timeout check
     setInterval(() => {
       const loginTime = localStorage.getItem('adminLoginTime');
       const currentTime = new Date().getTime();
@@ -832,1086 +1402,7 @@
         logout();
         alert('Session expired. Please login again.');
       }
-    }, 60000); // Check every minute
-  </script>
-</body>
-</html>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    :root {
-      --primary-bg: #0f172a;
-      --secondary-bg: #1e293b;
-      --accent-color: #38bdf8;
-      --text-primary: #e2e8f0;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --success-color: #22c55e;
-      --danger-color: #ef4444;
-      --warning-color: #f59e0b;
-    }
-    
-    body {
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: var(--primary-bg);
-      color: var(--text-primary);
-      min-height: 100vh;
-    }
-
-    .admin-header {
-      background: var(--secondary-bg);
-      padding: 20px 40px;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    
-    .admin-header h1 {
-      color: var(--accent-color);
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    
-    .admin-header p {
-      color: var(--text-secondary);
-    }
-
-    .admin-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    .admin-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .stat-card {
-      background: var(--secondary-bg);
-      padding: 25px;
-      border-radius: 15px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .pending-stat .stat-number { color: var(--warning-color); }
-    .accepted-stat .stat-number { color: var(--success-color); }
-    .rejected-stat .stat-number { color: var(--danger-color); }
-    .total-stat .stat-number { color: var(--accent-color); }
-
-    .filters {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .filter-btn {
-      padding: 10px 20px;
-      background: transparent;
-      color: var(--text-secondary);
-      border: 2px solid rgba(148, 163, 184, 0.3);
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-      background: rgba(56, 189, 248, 0.1);
-    }
-
-    .applications-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 25px;
-    }
-
-    .application-card {
-      background: var(--secondary-bg);
-      border-radius: 20px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .application-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
-    }
-
-    .application-header {
-      padding: 25px 25px 20px;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
-      position: relative;
-    }
-
-    .application-status {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 6px 12px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .status-pending {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--warning-color);
-      border: 1px solid var(--warning-color);
-    }
-
-    .status-accepted {
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--success-color);
-      border: 1px solid var(--success-color);
-    }
-
-    .status-rejected {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--danger-color);
-      border: 1px solid var(--danger-color);
-    }
-
-    .applicant-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .application-meta {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    .meta-item i {
-      color: var(--accent-color);
-    }
-
-    .application-id {
-      font-family: monospace;
-      background: rgba(56, 189, 248, 0.1);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      color: var(--accent-color);
-    }
-
-    .application-body {
-      padding: 0 25px 25px;
-    }
-
-    .field-group {
-      margin-bottom: 20px;
-    }
-
-    .field-label {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    .field-value {
-      color: var(--text-secondary);
-      line-height: 1.5;
-      padding-left: 10px;
-      border-left: 3px solid rgba(56, 189, 248, 0.3);
-    }
-
-    .application-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(56, 189, 248, 0.1);
-    }
-
-    .action-btn {
-      flex: 1;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-accept {
-      background: var(--success-color);
-      color: white;
-    }
-
-    .btn-reject {
-      background: var(--danger-color);
-      color: white;
-    }
-
-    .btn-accept:hover {
-      background: #16a34a;
-      transform: translateY(-2px);
-    }
-
-    .btn-reject:hover {
-      background: #dc2626;
-      transform: translateY(-2px);
-    }
-
-    .action-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    .no-applications {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-
-    .no-applications i {
-      font-size: 64px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .bulk-actions {
-      margin-bottom: 20px;
-      padding: 20px;
-      background: var(--secondary-bg);
-      border-radius: 15px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-    }
-
-    .bulk-actions h3 {
-      color: var(--accent-color);
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
-
-    .bulk-btn {
-      padding: 10px 20px;
-      margin-right: 10px;
-      background: transparent;
-      color: var(--text-secondary);
-      border: 2px solid rgba(148, 163, 184, 0.3);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .bulk-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-    }
-
-    .bulk-btn.danger:hover {
-      border-color: var(--danger-color);
-      color: var(--danger-color);
-    }
-
-    @media (max-width: 768px) {
-      .admin-header {
-        padding: 20px;
-      }
-      
-      .admin-container {
-        padding: 20px 15px;
-      }
-      
-      .applications-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .filters {
-        justify-content: center;
-      }
-      
-      .application-meta {
-        flex-direction: column;
-        gap: 8px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="admin-header">
-    <h1><i class="fas fa-clipboard-list"></i> Application Review Dashboard</h1>
-    <p>Manage and review job applications for Educate Devs</p>
-  </header>
-
-  <div class="admin-container">
-    <div class="admin-stats">
-      <div class="stat-card total-stat">
-        <div class="stat-number" id="totalApplications">0</div>
-        <div class="stat-label">Total Applications</div>
-      </div>
-      <div class="stat-card pending-stat">
-        <div class="stat-number" id="pendingApplications">0</div>
-        <div class="stat-label">Pending</div>
-      </div>
-      <div class="stat-card accepted-stat">
-        <div class="stat-number" id="acceptedApplications">0</div>
-        <div class="stat-label">Accepted</div>
-      </div>
-      <div class="stat-card rejected-stat">
-        <div class="stat-number" id="rejectedApplications">0</div>
-        <div class="stat-label">Rejected</div>
-      </div>
-    </div>
-
-    <div class="bulk-actions">
-      <h3>Bulk Actions</h3>
-      <button class="bulk-btn" onclick="exportApplications()">
-        <i class="fas fa-download"></i> Export All
-      </button>
-      <button class="bulk-btn danger" onclick="clearAllApplications()">
-        <i class="fas fa-trash"></i> Clear All Data
-      </button>
-      <button class="bulk-btn" onclick="loadApplications()">
-        <i class="fas fa-sync"></i> Refresh
-      </button>
-    </div>
-
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">All Applications</button>
-      <button class="filter-btn" data-filter="pending">Pending</button>
-      <button class="filter-btn" data-filter="accepted">Accepted</button>
-      <button class="filter-btn" data-filter="rejected">Rejected</button>
-    </div>
-
-    <div class="applications-grid" id="applicationsContainer">
-      <div class="no-applications">
-        <i class="fas fa-inbox"></i>
-        <h3>No Applications Yet</h3>
-        <p>Applications will appear here when people apply for positions</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let allApplications = [];
-    let currentFilter = 'all';
-
-    function loadApplications() {
-      const stored = localStorage.getItem('jobApplications');
-      allApplications = stored ? JSON.parse(stored) : [];
-      updateStats();
-      displayApplications();
-    }
-
-    function updateStats() {
-      const total = allApplications.length;
-      const pending = allApplications.filter(app => app.status === 'pending').length;
-      const accepted = allApplications.filter(app => app.status === 'accepted').length;
-      const rejected = allApplications.filter(app => app.status === 'rejected').length;
-
-      document.getElementById('totalApplications').textContent = total;
-      document.getElementById('pendingApplications').textContent = pending;
-      document.getElementById('acceptedApplications').textContent = accepted;
-      document.getElementById('rejectedApplications').textContent = rejected;
-    }
-
-    function displayApplications() {
-      const container = document.getElementById('applicationsContainer');
-      let filteredApps = allApplications;
-
-      if (currentFilter !== 'all') {
-        filteredApps = allApplications.filter(app => app.status === currentFilter);
-      }
-
-      if (filteredApps.length === 0) {
-        container.innerHTML = `
-          <div class="no-applications">
-            <i class="fas fa-inbox"></i>
-            <h3>No ${currentFilter === 'all' ? '' : currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1)} Applications</h3>
-            <p>${currentFilter === 'all' ? 'Applications will appear here when people apply for positions' : `No ${currentFilter} applications found`}</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filteredApps.map(app => `
-        <div class="application-card" data-status="${app.status}">
-          <div class="application-header">
-            <div class="application-status status-${app.status}">${app.status}</div>
-            <div class="applicant-name">${app.fullName}</div>
-            <div class="application-meta">
-              <div class="meta-item">
-                <i class="fas fa-briefcase"></i>
-                <span>${app.position}</span>
-              </div>
-              <div class="meta-item">
-                <i class="fas fa-calendar"></i>
-                <span>${new Date(app.timestamp).toLocaleDateString()}</span>
-              </div>
-              <div class="meta-item">
-                <i class="fas fa-clock"></i>
-                <span>${new Date(app.timestamp).toLocaleTimeString()}</span>
-              </div>
-            </div>
-            <div class="application-id">${app.applicationId}</div>
-          </div>
-          
-          <div class="application-body">
-            <div class="field-group">
-              <div class="field-label">Email</div>
-              <div class="field-value">${app.email}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Discord Username</div>
-              <div class="field-value">${app.discordUsername}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Experience</div>
-              <div class="field-value">${app.experience}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Availability</div>
-              <div class="field-value">${app.availability}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Motivation</div>
-              <div class="field-value">${app.motivation}</div>
-            </div>
-            
-            ${app.status === 'pending' ? `
-              <div class="application-actions">
-                <button class="action-btn btn-accept" onclick="updateApplicationStatus('${app.applicationId}', 'accepted')">
-                  <i class="fas fa-check"></i>
-                  Accept
-                </button>
-                <button class="action-btn btn-reject" onclick="updateApplicationStatus('${app.applicationId}', 'rejected')">
-                  <i class="fas fa-times"></i>
-                  Reject
-                </button>
-              </div>
-            ` : ''}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function updateApplicationStatus(applicationId, newStatus) {
-      const appIndex = allApplications.findIndex(app => app.applicationId === applicationId);
-      if (appIndex !== -1) {
-        allApplications[appIndex].status = newStatus;
-        allApplications[appIndex].reviewedAt = new Date().toISOString();
-        localStorage.setItem('jobApplications', JSON.stringify(allApplications));
-        loadApplications();
-      }
-    }
-
-    function exportApplications() {
-      if (allApplications.length === 0) {
-        alert('No applications to export');
-        return;
-      }
-
-      const dataStr = JSON.stringify(allApplications, null, 2);
-      const dataBlob = new Blob([dataStr], {type: 'application/json'});
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `educate-devs-applications-${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function clearAllApplications() {
-      if (confirm('Are you sure you want to delete ALL applications? This cannot be undone!')) {
-        localStorage.removeItem('jobApplications');
-        allApplications = [];
-        loadApplications();
-      }
-    }
-
-    // Filter functionality
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentFilter = this.dataset.filter;
-        displayApplications();
-      });
-    });
-
-    // Auto-refresh every 30 seconds
-    setInterval(loadApplications, 30000);
-
-    // Initial load
-    loadApplications();
-  </script>
-</body>
-</html>      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-    
-    .admin-header h1 {
-      color: var(--accent-color);
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    
-    .admin-header p {
-      color: var(--text-secondary);
-    }
-
-    .admin-container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    .admin-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .stat-card {
-      background: var(--secondary-bg);
-      padding: 25px;
-      border-radius: 15px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .pending-stat .stat-number { color: var(--warning-color); }
-    .accepted-stat .stat-number { color: var(--success-color); }
-    .rejected-stat .stat-number { color: var(--danger-color); }
-    .total-stat .stat-number { color: var(--accent-color); }
-
-    .filters {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .filter-btn {
-      padding: 10px 20px;
-      background: transparent;
-      color: var(--text-secondary);
-      border: 2px solid rgba(148, 163, 184, 0.3);
-      border-radius: 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .filter-btn.active,
-    .filter-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-      background: rgba(56, 189, 248, 0.1);
-    }
-
-    .applications-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
-      gap: 25px;
-    }
-
-    .application-card {
-      background: var(--secondary-bg);
-      border-radius: 20px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      overflow: hidden;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-
-    .application-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(56, 189, 248, 0.2);
-    }
-
-    .application-header {
-      padding: 25px 25px 20px;
-      border-bottom: 1px solid rgba(56, 189, 248, 0.1);
-      position: relative;
-    }
-
-    .application-status {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 6px 12px;
-      border-radius: 15px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .status-pending {
-      background: rgba(245, 158, 11, 0.2);
-      color: var(--warning-color);
-      border: 1px solid var(--warning-color);
-    }
-
-    .status-accepted {
-      background: rgba(34, 197, 94, 0.2);
-      color: var(--success-color);
-      border: 1px solid var(--success-color);
-    }
-
-    .status-rejected {
-      background: rgba(239, 68, 68, 0.2);
-      color: var(--danger-color);
-      border: 1px solid var(--danger-color);
-    }
-
-    .applicant-name {
-      font-size: 20px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .application-meta {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-secondary);
-      font-size: 14px;
-    }
-
-    .meta-item i {
-      color: var(--accent-color);
-    }
-
-    .application-id {
-      font-family: monospace;
-      background: rgba(56, 189, 248, 0.1);
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      color: var(--accent-color);
-    }
-
-    .application-body {
-      padding: 0 25px 25px;
-    }
-
-    .field-group {
-      margin-bottom: 20px;
-    }
-
-    .field-label {
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 6px;
-      font-size: 14px;
-    }
-
-    .field-value {
-      color: var(--text-secondary);
-      line-height: 1.5;
-      padding-left: 10px;
-      border-left: 3px solid rgba(56, 189, 248, 0.3);
-    }
-
-    .application-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(56, 189, 248, 0.1);
-    }
-
-    .action-btn {
-      flex: 1;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-accept {
-      background: var(--success-color);
-      color: white;
-    }
-
-    .btn-reject {
-      background: var(--danger-color);
-      color: white;
-    }
-
-    .btn-accept:hover {
-      background: #16a34a;
-      transform: translateY(-2px);
-    }
-
-    .btn-reject:hover {
-      background: #dc2626;
-      transform: translateY(-2px);
-    }
-
-    .action-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    .no-applications {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--text-secondary);
-    }
-
-    .no-applications i {
-      font-size: 64px;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .bulk-actions {
-      margin-bottom: 20px;
-      padding: 20px;
-      background: var(--secondary-bg);
-      border-radius: 15px;
-      border: 1px solid rgba(56, 189, 248, 0.2);
-    }
-
-    .bulk-actions h3 {
-      color: var(--accent-color);
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
-
-    .bulk-btn {
-      padding: 10px 20px;
-      margin-right: 10px;
-      background: transparent;
-      color: var(--text-secondary);
-      border: 2px solid rgba(148, 163, 184, 0.3);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-
-    .bulk-btn:hover {
-      border-color: var(--accent-color);
-      color: var(--accent-color);
-    }
-
-    .bulk-btn.danger:hover {
-      border-color: var(--danger-color);
-      color: var(--danger-color);
-    }
-
-    @media (max-width: 768px) {
-      .admin-header {
-        padding: 20px;
-      }
-      
-      .admin-container {
-        padding: 20px 15px;
-      }
-      
-      .applications-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .filters {
-        justify-content: center;
-      }
-      
-      .application-meta {
-        flex-direction: column;
-        gap: 8px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="admin-header">
-    <h1><i class="fas fa-clipboard-list"></i> Application Review Dashboard</h1>
-    <p>Manage and review job applications for Educate Devs</p>
-  </header>
-
-  <div class="admin-container">
-    <div class="admin-stats">
-      <div class="stat-card total-stat">
-        <div class="stat-number" id="totalApplications">0</div>
-        <div class="stat-label">Total Applications</div>
-      </div>
-      <div class="stat-card pending-stat">
-        <div class="stat-number" id="pendingApplications">0</div>
-        <div class="stat-label">Pending</div>
-      </div>
-      <div class="stat-card accepted-stat">
-        <div class="stat-number" id="acceptedApplications">0</div>
-        <div class="stat-label">Accepted</div>
-      </div>
-      <div class="stat-card rejected-stat">
-        <div class="stat-number" id="rejectedApplications">0</div>
-        <div class="stat-label">Rejected</div>
-      </div>
-    </div>
-
-    <div class="bulk-actions">
-      <h3>Bulk Actions</h3>
-      <button class="bulk-btn" onclick="exportApplications()">
-        <i class="fas fa-download"></i> Export All
-      </button>
-      <button class="bulk-btn danger" onclick="clearAllApplications()">
-        <i class="fas fa-trash"></i> Clear All Data
-      </button>
-      <button class="bulk-btn" onclick="loadApplications()">
-        <i class="fas fa-sync"></i> Refresh
-      </button>
-    </div>
-
-    <div class="filters">
-      <button class="filter-btn active" data-filter="all">All Applications</button>
-      <button class="filter-btn" data-filter="pending">Pending</button>
-      <button class="filter-btn" data-filter="accepted">Accepted</button>
-      <button class="filter-btn" data-filter="rejected">Rejected</button>
-    </div>
-
-    <div class="applications-grid" id="applicationsContainer">
-      <div class="no-applications">
-        <i class="fas fa-inbox"></i>
-        <h3>No Applications Yet</h3>
-        <p>Applications will appear here when people apply for positions</p>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    let allApplications = [];
-    let currentFilter = 'all';
-
-    function loadApplications() {
-      const stored = localStorage.getItem('jobApplications');
-      allApplications = stored ? JSON.parse(stored) : [];
-      updateStats();
-      displayApplications();
-    }
-
-    function updateStats() {
-      const total = allApplications.length;
-      const pending = allApplications.filter(app => app.status === 'pending').length;
-      const accepted = allApplications.filter(app => app.status === 'accepted').length;
-      const rejected = allApplications.filter(app => app.status === 'rejected').length;
-
-      document.getElementById('totalApplications').textContent = total;
-      document.getElementById('pendingApplications').textContent = pending;
-      document.getElementById('acceptedApplications').textContent = accepted;
-      document.getElementById('rejectedApplications').textContent = rejected;
-    }
-
-    function displayApplications() {
-      const container = document.getElementById('applicationsContainer');
-      let filteredApps = allApplications;
-
-      if (currentFilter !== 'all') {
-        filteredApps = allApplications.filter(app => app.status === currentFilter);
-      }
-
-      if (filteredApps.length === 0) {
-        container.innerHTML = `
-          <div class="no-applications">
-            <i class="fas fa-inbox"></i>
-            <h3>No ${currentFilter === 'all' ? '' : currentFilter.charAt(0).toUpperCase() + currentFilter.slice(1)} Applications</h3>
-            <p>${currentFilter === 'all' ? 'Applications will appear here when people apply for positions' : `No ${currentFilter} applications found`}</p>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = filteredApps.map(app => `
-        <div class="application-card" data-status="${app.status}">
-          <div class="application-header">
-            <div class="application-status status-${app.status}">${app.status}</div>
-            <div class="applicant-name">${app.fullName}</div>
-            <div class="application-meta">
-              <div class="meta-item">
-                <i class="fas fa-briefcase"></i>
-                <span>${app.position}</span>
-              </div>
-              <div class="meta-item">
-                <i class="fas fa-calendar"></i>
-                <span>${new Date(app.timestamp).toLocaleDateString()}</span>
-              </div>
-              <div class="meta-item">
-                <i class="fas fa-clock"></i>
-                <span>${new Date(app.timestamp).toLocaleTimeString()}</span>
-              </div>
-            </div>
-            <div class="application-id">${app.applicationId}</div>
-          </div>
-          
-          <div class="application-body">
-            <div class="field-group">
-              <div class="field-label">Email</div>
-              <div class="field-value">${app.email}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Discord Username</div>
-              <div class="field-value">${app.discordUsername}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Experience</div>
-              <div class="field-value">${app.experience}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Availability</div>
-              <div class="field-value">${app.availability}</div>
-            </div>
-            
-            <div class="field-group">
-              <div class="field-label">Motivation</div>
-              <div class="field-value">${app.motivation}</div>
-            </div>
-            
-            ${app.status === 'pending' ? `
-              <div class="application-actions">
-                <button class="action-btn btn-accept" onclick="updateApplicationStatus('${app.applicationId}', 'accepted')">
-                  <i class="fas fa-check"></i>
-                  Accept
-                </button>
-                <button class="action-btn btn-reject" onclick="updateApplicationStatus('${app.applicationId}', 'rejected')">
-                  <i class="fas fa-times"></i>
-                  Reject
-                </button>
-              </div>
-            ` : ''}
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function updateApplicationStatus(applicationId, newStatus) {
-      const appIndex = allApplications.findIndex(app => app.applicationId === applicationId);
-      if (appIndex !== -1) {
-        allApplications[appIndex].status = newStatus;
-        allApplications[appIndex].reviewedAt = new Date().toISOString();
-        localStorage.setItem('jobApplications', JSON.stringify(allApplications));
-        loadApplications();
-      }
-    }
-
-    function exportApplications() {
-      if (allApplications.length === 0) {
-        alert('No applications to export');
-        return;
-      }
-
-      const dataStr = JSON.stringify(allApplications, null, 2);
-      const dataBlob = new Blob([dataStr], {type: 'application/json'});
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `educate-devs-applications-${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
-    }
-
-    function clearAllApplications() {
-      if (confirm('Are you sure you want to delete ALL applications? This cannot be undone!')) {
-        localStorage.removeItem('jobApplications');
-        allApplications = [];
-        loadApplications();
-      }
-    }
-
-    // Filter functionality
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentFilter = this.dataset.filter;
-        displayApplications();
-      });
-    });
-
-    // Auto-refresh every 30 seconds
-    setInterval(loadApplications, 30000);
-
-    // Initial load
-    loadApplications();
+    }, 60000);
   </script>
 </body>
 </html>
